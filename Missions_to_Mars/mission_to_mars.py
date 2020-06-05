@@ -100,8 +100,7 @@ def MarsHemispheres():
 
 def scrape():
     title, body = MarsNews()
-    mars_info = {'News Article':title,'News Teaser':body,'Image URL':JPLMarsImage(),\
-        'Weather':MarsWeather(), 'Facts': MarsFacts(), 'Photos': MarsHemispheres()}
+    mars_info = {'ntitle':title,'nbody':body,'feat_img':JPLMarsImage(),\
+        'weather':MarsWeather(), 'facts': MarsFacts(), 'photos': MarsHemispheres()}
     
     return mars_info
-
