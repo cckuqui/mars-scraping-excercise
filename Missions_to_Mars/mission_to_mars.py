@@ -7,105 +7,76 @@ import tweepy
 from twitter import api_key, api_secret_key
 
 def scrape():
-    Browser('chrome', {'executable_path': 'chromedriver.exe'})
-
-
-    
-    mars_info = {'ntitle':title,'nbody':body,'feat_img':JPLMarsImage(),\
-        'weather':MarsWeather(), 'facts': MarsFacts(), 'photos': MarsHemispheres()}
-    
-    return mars_info
-
-
-def init_browser():
-    return 
-
-
-def MarsNews():
-    browser = init_browser()
+    # News
+    browser = Browser('chrome', {'executable_path': 'chromedriver.exe'})
     url = 'https://mars.nasa.gov/news/'
     browser.visit(url)
     html = browser.html
-    soup = bs(html, 'lxml')
-
+    soup = bs(html, 'html')
     content_titles = soup.find_all('div', class_ = 'content_title')
-    article_title = content_titles[1].text
-    teaser_body = soup.find('div', class_ = 'article_teaser_body').text
-    browser.quit()
+    ntitle = content_titles[1].text
+    nbody = soup.find('div', class_ = 'article_teaser_body').text
 
-    return article_title, teaser_body
-
-def JPLMarsImage():
-    browser = init_browser()
+    # Feature Image
     url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
     browser.visit(url)
     browser.click_link_by_partial_text('FULL')
     browser.click_link_by_partial_text('more info')
     html = browser.html
     soup = bs(html,'html')
-
     lede = soup.find('figure', class_='lede')
-    img = lede.find('a')['href']
-    img_url = f'https://jpl.nasa.gov{img}'
-    browser.quit()
+    lede_img = lede.find('a')['href']
+    feat_img = f'https://jpl.nasa.gov{lede_img}'
 
-    return img_url
-
-def MarsWeather():
+    # Twitter
     auth = tweepy.OAuthHandler(api_key, api_secret_key)
     api = tweepy.API(auth)
     username = 'MarsWxReport'
     tweets = []
     data = api.user_timeline(id=username, tweet_mode="extended")
-
     for t in data:
         tweets.append(t.full_text)
     weather = tweets[0]
     weather = weather.split(' http',1)[0]
-    
-    return weather
 
-def MarsFacts():
-    browser = init_browser()
+    # Table Facts
     url = 'https://space-facts.com/mars/'
     browser.visit(url)
     html = browser.html
-    soup = bs(html, 'html')
-
     facts = pd.read_html(url)
     facts_df = pd.DataFrame(facts[0])
     facts_df.columns = ['Data','Value']
     facts_df = facts_df.set_index('Data')
-    facts = facts_df.to_html
-    browser.quit()
+    facts = facts_df.to_html()
 
-    return facts
-
-def MarsHemispheres():
-    browser = init_browser()
+    # Hemisphere Images
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url)
     html = browser.html
     soup = bs(html, 'html')
-
-    list_hem = []
-    hemispheres = {}
-    products = soup('div', class_='description')
-
+    links = []
+    products = soup.find_all('div', class_='item')
     for p in products:
+        h = {}
         hem = p.find('h3').text
-        hem = hem.replace(' Enhanced','')
-        hemispheres['Hemisphere'] = hem
+        hem = hem.replace(' Hemisphere Enhanced','')
+        h['item'] = hem
         browser.click_link_by_partial_text(hem)
         html = browser.html
-        soup = bs(html,'html')
-        image_url = soup.find_all('a', {'target':'_blank'})
+        soup = bs(html, 'html')
+        image_url = soup.find_all('li')
         for i in image_url:
+            img = i.find('a')
             if 'Sample' in i.text:
-                hemispheres['Img link'] = i['href']
-        list_hem.append(hemispheres)
+                img = img.get('href')
+                h['url'] = img
+                print(img)
+        browser.back()
+        links.append(h)
+    
     browser.quit()
+    
+    # Dictionary for Mongo
+    mars = {'ntitle':ntitle,'nbody':nbody,'feat_img':feat_img,'weather':weather,'facts':facts,'h':links}
 
-    return list_hem
-
-scrape()
+    return mars

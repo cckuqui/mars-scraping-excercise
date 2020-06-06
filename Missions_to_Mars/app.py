@@ -1,10 +1,3 @@
-# 'ntitle':title,
-# 'nbody':body,
-# 'feat_img':JPLMarsImage(),
-# 'weather':MarsWeather(), 
-# 'facts': MarsFacts(), 
-# 'photos': MarsHemispheres()
-
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
 import mission_to_mars
@@ -19,23 +12,25 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_data")
 # Route to render index.html template using data from Mongo
 @app.route("/")
 def home():
-
-    # Find one record of data from the mongo database
+    
     mars = mongo.db.collection.find_one()
-
-    # Return template and data
+    if mars is  None :
+        mars = {
+            'ntitle':'',
+            'nbody':'',
+            'feat_img':'',
+            'weather':'',
+            'facts':'',
+            'h':''}
     return render_template("index.html", mars=mars)
 
 
 # Route that will trigger the scrape function
-@app.route("/scrape")
+@app.route("/scrape/")
 def scrape():
-
-    # Run the scrape function
+    mars = mongo.db.mars
     mars_data = mission_to_mars.scrape()
-
-    # Update the Mongo database using update and upsert=True
-    mongo.db.collection.update({}, mars_data, upsert=True)
+    mars.replace_one({}, mars_data, upsert=True)
 
     # Redirect back to home page
     return redirect("/")
@@ -43,5 +38,4 @@ def scrape():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
 

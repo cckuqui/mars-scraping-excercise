@@ -48,7 +48,7 @@
                 <div class="page-header">
                     <h1>Latest Mars News</h1>
                     <h4>{{ mars.ntitle }}</h4>
-                    <p>{{ mars.nbody }}nbody</p>
+                    <p>{{ mars.nbody }}</p>
                 </div>
             </div>
         </div>
@@ -83,12 +83,12 @@
                     <h2 class="card-header">Mars Hemispheres</h2>
                     <div class="card-body">
                         <div class='row'>
-                            <img src="{{ mars.photo }}" class="img-thumbnail rounded">
-                            <img src="{{ mars.photo }}" class="img-thumbnail rounded">
+                            <img src="{{ mars.h.url }}" class="img-thumbnail rounded">
+                            <img src="{{ mars.h.url }}" class="img-thumbnail rounded">
                         </div>
                         <div class='row'>
-                            <img src="{{ mars.photo }}" class="img-thumbnail rounded">
-                            <img src="{{ mars.photo }}" class="img-thumbnail rounded">
+                            <img src="{{ mars.h.url }}" class="img-thumbnail rounded">
+                            <img src="{{ mars.h.url }}" class="img-thumbnail rounded">
                         </div>
                     </div>
                 </div>
