@@ -6,9 +6,20 @@ import pandas as pd
 import tweepy
 from twitter import api_key, api_secret_key
 
+def scrape():
+    Browser('chrome', {'executable_path': 'chromedriver.exe'})
+
+
+    
+    mars_info = {'ntitle':title,'nbody':body,'feat_img':JPLMarsImage(),\
+        'weather':MarsWeather(), 'facts': MarsFacts(), 'photos': MarsHemispheres()}
+    
+    return mars_info
+
 
 def init_browser():
-    return Browser('chrome', {'executable_path': 'chromedriver.exe'})
+    return 
+
 
 def MarsNews():
     browser = init_browser()
@@ -65,11 +76,10 @@ def MarsFacts():
     facts_df = pd.DataFrame(facts[0])
     facts_df.columns = ['Data','Value']
     facts_df = facts_df.set_index('Data')
+    facts = facts_df.to_html
     browser.quit()
 
-    facts_df
-
-    return facts_df
+    return facts
 
 def MarsHemispheres():
     browser = init_browser()
@@ -98,9 +108,4 @@ def MarsHemispheres():
 
     return list_hem
 
-def scrape():
-    title, body = MarsNews()
-    mars_info = {'ntitle':title,'nbody':body,'feat_img':JPLMarsImage(),\
-        'weather':MarsWeather(), 'facts': MarsFacts(), 'photos': MarsHemispheres()}
-    
-    return mars_info
+scrape()
