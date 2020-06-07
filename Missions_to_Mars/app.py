@@ -8,12 +8,11 @@ app = Flask(__name__)
 # Use PyMongo to establish Mongo connection
 mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_data")
 
-
 # Route to render index.html template using data from Mongo
 @app.route("/")
 def home():
     
-    mars = mongo.db.collection.find_one()
+    mars = mongo.db.mars.find_one()
     if mars is  None :
         mars = {
             'ntitle':'',
@@ -26,13 +25,12 @@ def home():
 
 
 # Route that will trigger the scrape function
-@app.route("/scrape/")
+@app.route('/scrape/')
 def scrape():
     mars = mongo.db.mars
     mars_data = mission_to_mars.scrape()
     mars.replace_one({}, mars_data, upsert=True)
-
-    # Redirect back to home page
+    print(mars_data)
     return redirect("/")
 
 

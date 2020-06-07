@@ -15,7 +15,7 @@ def scrape():
     soup = bs(html, 'html')
     content_titles = soup.find_all('div', class_ = 'content_title')
     ntitle = content_titles[1].text
-    nbody = soup.find('div', class_ = 'article_teaser_body').text
+    nbody = soup.find('div', class_ = 'rollover_description_inner').text
 
     # Feature Image
     url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
@@ -38,16 +38,14 @@ def scrape():
         tweets.append(t.full_text)
     weather = tweets[0]
     weather = weather.split(' http',1)[0]
+    
 
     # Table Facts
     url = 'https://space-facts.com/mars/'
-    browser.visit(url)
-    html = browser.html
-    facts = pd.read_html(url)
-    facts_df = pd.DataFrame(facts[0])
-    facts_df.columns = ['Data','Value']
-    facts_df = facts_df.set_index('Data')
-    facts = facts_df.to_html()
+    facts = pd.read_html(url)[0]
+    facts.columns = ['Data','Value']
+    facts.set_index('Data', inplace=True)
+    facts = facts.to_html(classes="table table-hover").strip()
 
     # Hemisphere Images
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
@@ -78,5 +76,6 @@ def scrape():
     
     # Dictionary for Mongo
     mars = {'ntitle':ntitle,'nbody':nbody,'feat_img':feat_img,'weather':weather,'facts':facts,'h':links}
+    # print(mars)
 
     return mars

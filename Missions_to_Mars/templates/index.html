@@ -15,7 +15,7 @@
         /* The image used */
             background-image: url("https://mars.nasa.gov/system/downloadable_items/44772_dragon.jpg");
         /* Full height */
-            height: 1000px; 
+            height: auto; 
         /* Center and scale the image nicely */
             background-position: center;
             background-repeat: no-repeat;
@@ -77,18 +77,21 @@
             </div>
         </div>
 
+        <br>
+
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <h2 class="card-header">Mars Hemispheres</h2>
                     <div class="card-body">
                         <div class='row'>
-                            <img src="{{ mars.h.url }}" class="img-thumbnail rounded">
-                            <img src="{{ mars.h.url }}" class="img-thumbnail rounded">
-                        </div>
-                        <div class='row'>
-                            <img src="{{ mars.h.url }}" class="img-thumbnail rounded">
-                            <img src="{{ mars.h.url }}" class="img-thumbnail rounded">
+                            {% for h in mars.h %}
+                            <div class="col-lg-6">
+                                <br>
+                                <h5 class="card-title">{{ h.item }} Hemispher</h5>
+                                <img src="{{ h.url }}" class="img-thumbnail rounded">
+                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -98,8 +101,6 @@
     </div>
 </div>
 </div>
-
-    <footer class='navbar navbar-expand-lg bg-dark fixed-bottom text-muted'>Layout formatted by Cristina Bardan</footer>
 
 
     <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
