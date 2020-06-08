@@ -5,8 +5,10 @@ from splinter import Browser
 import pandas as pd
 import tweepy
 from twitter import api_key, api_secret_key
+import datetime
 
 def scrape():
+     
     # News
     browser = Browser('chrome', {'executable_path': 'chromedriver.exe'})
     url = 'https://mars.nasa.gov/news/'
@@ -15,10 +17,11 @@ def scrape():
     soup = bs(html, 'html')
     content_titles = soup.find_all('div', class_ = 'content_title')
     ntitle = content_titles[1].text
-    nbody = soup.find('div', class_ = 'rollover_description_inner').text
+    nbody = soup.find('div', class_ = 'article_teaser_body').text
 
     # Feature Image
-    url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
+    # browser = Browser('chrome', {'executable_path': 'chromedriver.exe'})
+    url = 'https://www.jpl.nasa.gov/spaceimages/'
     browser.visit(url)
     browser.click_link_by_partial_text('FULL')
     browser.click_link_by_partial_text('more info')
@@ -28,7 +31,7 @@ def scrape():
     lede_img = lede.find('a')['href']
     feat_img = f'https://jpl.nasa.gov{lede_img}'
 
-    # Twitter
+    # Weather from twitter
     auth = tweepy.OAuthHandler(api_key, api_secret_key)
     api = tweepy.API(auth)
     username = 'MarsWxReport'
@@ -39,13 +42,12 @@ def scrape():
     weather = tweets[0]
     weather = weather.split(' http',1)[0]
     
-
     # Table Facts
     url = 'https://space-facts.com/mars/'
     facts = pd.read_html(url)[0]
     facts.columns = ['Data','Value']
-    facts.set_index('Data', inplace=True)
-    facts = facts.to_html(classes="table table-hover").strip()
+    facts = facts.set_index('Data')
+    facts = facts.to_html(classes="table table-hover").replace('\n', '')
 
     # Hemisphere Images
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
@@ -68,14 +70,21 @@ def scrape():
             if 'Sample' in i.text:
                 img = img.get('href')
                 h['url'] = img
-                print(img)
         browser.back()
         links.append(h)
     
     browser.quit()
     
     # Dictionary for Mongo
-    mars = {'ntitle':ntitle,'nbody':nbody,'feat_img':feat_img,'weather':weather,'facts':facts,'h':links}
+    mars = {
+        'ntitle':ntitle,
+        'nbody':nbody,
+        'feat_img':feat_img,
+        'weather':weather,
+        'facts':facts,
+        'h':links,
+        'date': str(datetime.date.today())
+        }
     # print(mars)
 
     return mars

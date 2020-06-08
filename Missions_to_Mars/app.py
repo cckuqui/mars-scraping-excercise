@@ -13,14 +13,6 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_data")
 def home():
     
     mars = mongo.db.mars.find_one()
-    if mars is  None :
-        mars = {
-            'ntitle':'',
-            'nbody':'',
-            'feat_img':'',
-            'weather':'',
-            'facts':'',
-            'h':''}
     return render_template("index.html", mars=mars)
 
 
