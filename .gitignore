@@ -1,2 +1,4 @@
-/data
 twitter.py
+.vscode/
+.ipynb_checkpoints/
+__pycache__/
