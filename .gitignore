@@ -1,4 +1,5 @@
 twitter.py
-.vscode/
 .ipynb_checkpoints/
 __pycache__/
+venv/
+.vscode/

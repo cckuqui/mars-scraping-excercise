@@ -1,48 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <title>Scraping Mars Information</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css" media="screen">
-    <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
-</head>
+{% block body %}
+        
+            <div class="jumbotron text-center">
+                <h1 class="display-3">Mission to Mars</h1>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape new data</a>
+                </p>
+                <p>Latest update: {{ mars.date }}</p>
+            </div>
 
-    <style>
-        .bgi { 
-            background-image: url("https://mars.nasa.gov/system/downloadable_items/38496_Mars-Nili_Fossae-Bedrock-MRO-HIRISE-.jpg");
-            height: auto; 
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            }
-    </style>
-    
-    <div class="bgi">
         <body>
+
             <div class="container">
-                <div class="jumbotron text-center fixed-top">
-                    <h1 class="display-3">Mission to Mars</h1>
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape new data</a>
-                    </p>
-                    <p>Latest update: {{ mars.date }}</p>
-                </div> 
 
-                <div class="bs-docs-section clearfix">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="page-header">
-                                <h1 id="navbars">L</h1>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <br>
-                
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="page-header">
@@ -57,13 +28,24 @@
                     <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
                         <div class="card">
                             <h2 class="card-header">Featured Image from CalTec Jet Propulsion Laboratory (JPL)</h2>
-                            <div class="card-body text-center">
-                                <img src="{{ mars.feat_img }}" class="img-thumbnail rounded">
+                            <div class="card-body">
+                                <img src="{{ mars.feat_img }}" class="img-thumbnail rounded center">
+                                
+                                <br>
+                                <br>
+                                
+                                <h4 class="card-title">Image Details:</h4>
+                                <ul>
+                                    {% for d in mars.img_det %}
+                                        <li>{{ d.detail }}</li>
+                                    {% endfor %}
+                                </ul>
                             </div>
                         </div>
                     </div>
 
                     <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Current Weather on Mars</h4>
@@ -73,7 +55,15 @@
                                 <p class="card-text">{{ mars.weather }}</p>
                             </div>
                         </div>
+                        
+                        <br>
+
+                        <div class="card">
+                            <h4 class="card-header">General Facts</h4>
+                        </div>
                         {{ mars.facts | safe }}
+                        
+
                     </div>
                 </div>
 
@@ -97,27 +87,10 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+
         </body>
     
         <br>
-    </div>
-
-
-    
-
-    <div class="footer-copyright text-center py-3">
-        <a href='http://www.github.com/cckuqui'>Cristina Bardan</a> - Data BootCamp Tec de Monterrey
-        <br>
-        Trilogy Education Services © 2019. All Rights Reserved.
-    </div>
-
-
-    <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
-    <script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
-    <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="https://bootswatch.com/_assets/js/custom.js"></script>
-    
-
-
-</html>
+{% endblock %}

@@ -20,16 +20,29 @@ def scrape():
     nbody = soup.find('div', class_ = 'article_teaser_body').text
 
     # Feature Image
-    # browser = Browser('chrome', {'executable_path': 'chromedriver.exe'})
     url = 'https://www.jpl.nasa.gov/spaceimages/'
     browser.visit(url)
     browser.click_link_by_partial_text('FULL')
     browser.click_link_by_partial_text('more info')
     html = browser.html
     soup = bs(html,'html')
+    
+    # Image Url
     lede = soup.find('figure', class_='lede')
     lede_img = lede.find('a')['href']
     feat_img = f'https://jpl.nasa.gov{lede_img}'
+    
+    # Image Details
+    details = soup.find('aside', class_='image_detail_module')
+    ps = details.find_all('p')
+    det = []
+    for p in ps:
+        if ("Full-Res" not in p.text) and ("Views" not in p.text):
+            img_det = {}
+            img_det['detail'] = p.text
+            det.append(img_det)
+    det
+
 
     # Weather from twitter
     auth = tweepy.OAuthHandler(api_key, api_secret_key)
@@ -45,9 +58,9 @@ def scrape():
     # Table Facts
     url = 'https://space-facts.com/mars/'
     facts = pd.read_html(url)[0]
-    facts.columns = ['Data','Value']
-    facts = facts.set_index('Data')
-    facts = facts.to_html(classes="table table-hover").replace('\n', '')
+    facts.columns = ['Data','Values']
+    facts = facts.to_html(classes="table table-hover table-dark table-striped", header=False, justify='center', index=False)
+        
 
     # Hemisphere Images
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
@@ -80,6 +93,7 @@ def scrape():
         'ntitle':ntitle,
         'nbody':nbody,
         'feat_img':feat_img,
+        'img_det':det,
         'weather':weather,
         'facts':facts,
         'h':links,
