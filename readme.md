@@ -20,4 +20,4 @@ From this, a dictionary was created and uploaded into a MongoDB database through
 
 ### Copyright
 
-Excercise created by Trilogy Education Services © 2019. All Rights Reserved. Mars image not own, retrived from Space.com on 29/06/2020.
+Exercise created by Trilogy Education Services © 2019. All Rights Reserved. Mars image not own, retrived from Space.com on 29/06/2020.
