@@ -1,4 +1,4 @@
-# Web Scraping excercise - Mission to Mars
+# Web Scraping exercise - Mission to Mars
 
 Web application that scrapes information of mars from various NASA related pages and displays the information in one page.
 
