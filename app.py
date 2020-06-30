@@ -11,7 +11,8 @@ mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_data")
 # Route to render index.html template using data from Mongo
 @app.route("/")
 def home():
-    if mars is  None :
+    mars = mongo.db.mars.find_one()
+    if mars is None :
         mars = {
         'ntitle':'',
         'nbody':'',
@@ -23,7 +24,6 @@ def home():
         'date':''
         }
 
-    mars = mongo.db.mars.find_one()
     return render_template("index.html", mars=mars)
 
 
