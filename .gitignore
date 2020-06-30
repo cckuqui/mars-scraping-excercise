@@ -3,3 +3,4 @@ twitter.py
 __pycache__/
 venv/
 .vscode/
+.env

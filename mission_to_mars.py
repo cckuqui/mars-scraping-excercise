@@ -4,8 +4,13 @@ import requests
 from splinter import Browser
 import pandas as pd
 import tweepy
-from twitter import api_key, api_secret_key
+from dotenv import load_dotenv
+import os
 import datetime
+
+load_dotenv()
+api_key = os.getenv("api_key")
+api_secret_key = os.getenv("api_secret_key")
 
 def scrape():
      
