@@ -1,12 +1,18 @@
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
 import mission_to_mars
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+password = os.getenv("password")
 
 # Create an instance of Flask
 app = Flask(__name__)
 
 # Use PyMongo to establish Mongo connection
-mongo = PyMongo(app, uri="mongodb://localhost:27017/mars_data")
+mongo = PyMongo(app, uri=f"mongodb+srv://cckuqui:{password}@cluster0.52abc.mongodb.net/mars_data?retryWrites=true&w=majority")
 
 # Route to render index.html template using data from Mongo
 @app.route("/")
