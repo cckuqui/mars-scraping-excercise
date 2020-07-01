@@ -23,7 +23,7 @@ def scrape():
     ntitle = content_titles[1].text
     nbody = soup.find('div', class_ = 'article_teaser_body').text
 
-    # Feature Image
+    # Feature Image page
     url = 'https://www.jpl.nasa.gov/spaceimages/'
     browser.visit(url)
     browser.click_link_by_partial_text('FULL')
@@ -45,8 +45,6 @@ def scrape():
             img_det = {}
             img_det['detail'] = p.text
             det.append(img_det)
-    det
-
 
     # Weather from twitter
     auth = tweepy.OAuthHandler(api_key, api_secret_key)
@@ -65,7 +63,6 @@ def scrape():
     facts.columns = ['Data','Values']
     facts = facts.to_html(classes="table table-hover table-dark table-striped", header=False, justify='center', index=False)
         
-
     # Hemisphere Images
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url)
