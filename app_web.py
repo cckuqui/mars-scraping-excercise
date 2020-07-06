@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
-from web.web_mission_to_mars import scrape
+from web_mission_to_mars import scrape
 from dotenv import load_dotenv
 import os
 
