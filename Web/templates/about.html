@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block body %}
+
+<body>
+    <div class="container">
+        <br>
+        <h1>About</h1>
+
+        <h5>
+            The objective of this project is to showcase the author's habilities with Web Scraping. 
+            For this practice, several sites were used to retrive the information:
+        </h5>
+
+        <table class="table table-hover table-dark table-striped text-center">
+            <thead>
+                <tr>
+                <th class="align-middle" scope="col">Information retrieved</th>
+                <th class="align-middle" scope="col">Source Page</th>
+                <th class="align-middle" scope="col">URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="align-middle">Mars News</td>
+                    <td class="align-middle">NASA Science Mars Exploration Program</td>
+                    <td class="align-middle"><a href='https://mars.nasa.gov/news/'>https://mars.nasa.gov/news/</a></td>
+                </tr>
+                <tr>
+                    <td class="align-middle">Featured Image & images details</td>
+                    <td class="align-middle">NASA Jet Propulsion Laboratory - California Institute of Technology</td>
+                    <td class="align-middle"><a href='https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'>https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars</a></td>
+                </tr>
+                <tr>
+                    <td class="align-middle">Mars Weather</td>
+                    <td class="align-middle">Unofficial Mars Weather Report from Centro deAstrobiologia, FMI, JPL/NASA twitter account</td>
+                    <td class="align-middle"><a href='https://twitter.com/marswxreport?lang=en'>https://twitter.com/marswxreport?lang=en</a></td>
+                </tr>
+                <tr>
+                    <td class="align-middle">General Facts</td>
+                    <td class="align-middle">Space-Facts site</td>
+                    <td class="align-middle"><a href='https://space-facts.com/mars/'>https://space-facts.com/mars/</a></td>
+                </tr>
+                <tr>
+                    <td class="align-middle">Mars Hemispheres</td>
+                    <td class="align-middle">Astropedia site from USGS Astrogeology Science Center</td>
+                    <td class="align-middle"><a href='https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'>https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars</a></td>
+                </tr>
+            </tbody>
+        </table> 
+        <h5>
+            For more information about this code, please visit the project repository at 
+            <a href='https://github.com/cckuqui/mars-scraping-excercise'>Github</a>
+        </h5>
+
+        <h3>Back to <a href='/'>previous page</a></h3>
+        
+        <br>
+    </div>
+</body>
+
+
+
+
+
+
+{% endblock %}

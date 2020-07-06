@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
+import web_mission_to_mars
 from dotenv import load_dotenv
 import os
 
@@ -31,14 +32,14 @@ def home():
 
     return render_template("index.html", mars=mars)
 
-## Route that will trigger the scrape function
-# @app.route('/scrape/')
-# def scrape():
-#     mars = mongo.db.mars
-#     mars_data = mission_to_mars.scrape()
-#     mars.replace_one({}, mars_data, upsert=True)
-#     print(mars_data)
-#     return redirect("/")
+# Route that will trigger the scrape function
+@app.route('/scrape/')
+def scrape():
+    mars = mongo.db.mars
+    mars_data = mission_to_mars.scrape()
+    mars.replace_one({}, mars_data, upsert=True)
+    print(mars_data)
+    return redirect("/")
 
 @app.route("/about/")
 def about():

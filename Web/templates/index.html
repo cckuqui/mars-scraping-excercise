@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block body %}
+        
+            <div class="jumbotron text-center">
+                <h1 class="display-3">Mission to Mars</h1>
+                <p class="lead">
+                    <a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape new data</a>
+                </p>
+                <p>Latest update: {{ mars.date }}</p>
+            </div>
+
+        <body>
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-header">
+                            <h1>Latest Mars News</h1>
+                            <h4>{{ mars.ntitle }}</h4>
+                            <p>{{ mars.nbody }}</p>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="card">
+                            <h2 class="card-header">Featured Image from CalTec Jet Propulsion Laboratory (JPL)</h2>
+                            <div class="card-body">
+                                <img src="{{ mars.feat_img }}" class="img-thumbnail rounded center">
+                                
+                                <br>
+                                <br>
+                                
+                                <h4 class="card-title">Image Details:</h4>
+                                <ul>
+                                    {% for d in mars.img_det %}
+                                        <li>{{ d.detail }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Current Weather on Mars</h4>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    <a href="https://twitter.com/marswxreport?lang=en">From @MarsWeatherReport in twitter</a>
+                                </h6>
+                                <p class="card-text">{{ mars.weather }}</p>
+                            </div>
+                        </div>
+                        
+                        <br>
+
+                        <div class="card">
+                            <h4 class="card-header">General Facts</h4>
+                        </div>
+                        {{ mars.facts | safe }}
+                        
+
+                    </div>
+                </div>
+
+                <br>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <h2 class="card-header">Mars Hemispheres</h2>
+                            <div class="card-body">
+                                <div class='row'>
+                                    {% for h in mars.h %}
+                                    <div class="col-lg-6">
+                                        <br>
+                                        <h5 class="card-title">{{ h.item }} Hemispher</h5>
+                                        <img src="{{ h.url }}" class="img-thumbnail rounded">
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </body>
+    
+        <br>
+{% endblock %}

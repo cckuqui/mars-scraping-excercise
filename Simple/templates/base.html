@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Scraping Mars Information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="https://bootswatch.com/_assets/css/custom.min.css">
+</head>
+
+    <style>
+        .bgi { 
+            background-image: url("https://mars.nasa.gov/system/downloadable_items/38496_Mars-Nili_Fossae-Bedrock-MRO-HIRISE-.jpg");
+            height: auto; 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            }
+    </style>
+    
+    <div class="bgi">
+        {% block body %}{% endblock %}
+    </div>  
+
+    <div class="footer-copyright text-center py-3">
+        <h4>
+            <a href="/about">About this site</a>
+        </h4>
+        <a href='http://www.github.com/cckuqui'>Cristina Bardan</a> - Data BootCamp Tec de Monterrey
+        <br>
+        Trilogy Education Services © 2019. All Rights Reserved.
+    </div>
+
+
+    <script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js"></script>
+    <script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
+    <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://bootswatch.com/_assets/js/custom.js"></script>
+    
+
+
+</html>
