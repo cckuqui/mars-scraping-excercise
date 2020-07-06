@@ -20,7 +20,7 @@ def scrape():
         chrome_options.binary_location = google_chrome_bin
         browser = webdriver.Chrome(execution_path=chromedriver_path, chrome_options=chrome_options)
         return browser
-    except
+    except:
         return 'browser not working'
     
     # News
