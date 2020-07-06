@@ -11,13 +11,17 @@ def scrape():
 
     # Setting browser
     load_dotenv()
-    google_chrome_bin = os.getenv('google_chrome_bin')
-    chromedriver_path = os.getenv('chromedriver_path')
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--disable-gpu')
-    chrome_options.add_argument('--no-sandbox')
-    chrome_options.binary_location = google_chrome_bin
-    browser = webdriver.Chrome(execution_path=chromedriver_path, chrome_options=chrome_options)
+    try: 
+        google_chrome_bin = os.getenv('google_chrome_bin')
+        chromedriver_path = os.getenv('chromedriver_path')
+        chrome_options = webdriver.ChromeOptions()
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.binary_location = google_chrome_bin
+        browser = webdriver.Chrome(execution_path=chromedriver_path, chrome_options=chrome_options)
+        return browser
+    except
+        return 'browser not working'
     
     # News
     url = 'https://mars.nasa.gov/news/'
