@@ -101,15 +101,29 @@ def mars_scrape():
     browser.quit()
     
     # Dictionary for Mongo
-    mars = {
-        'ntitle':ntitle,
-        'nbody':nbody,
-        'feat_img':feat_img,
-        'img_det':det,
-        'weather':weather,
-        'facts':facts,
-        'h':links,
-        'date': str(datetime.date.today())
-        }
+    try: 
+        mars = {
+            'ntitle':ntitle,
+            'nbody':nbody,
+            'feat_img':feat_img,
+            'img_det':det,
+            'weather':weather,
+            'facts':facts,
+            'h':links,
+            'date': str(datetime.date.today())
+            }
+        return mars
+    except:
+        mars={
+            'ntitle':'=(',
+            'nbody':'=(',
+            'feat_img':'=(',
+            'img_det':'=(',
+            'weather':'=(',
+            'facts':'=(',
+            'h':'=(',
+            'date': str(datetime.date.today())
+            }
+        return mars
 
     return mars
