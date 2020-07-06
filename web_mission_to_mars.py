@@ -1,4 +1,4 @@
-def scrape():
+def mars_scrape():
 
     # Dependencies
     from bs4 import BeautifulSoup as bs
