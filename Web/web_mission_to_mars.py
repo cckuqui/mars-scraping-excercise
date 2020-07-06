@@ -1,14 +1,14 @@
-# Dependencies
-from bs4 import BeautifulSoup as bs
-from selenium import webdriver
-import pandas as pd
-import tweepy
-from dotenv import load_dotenv
-import os
-import datetime
-
 def scrape():
-     
+
+    # Dependencies
+    from bs4 import BeautifulSoup as bs
+    from selenium import webdriver
+    import pandas as pd
+    import tweepy
+    from dotenv import load_dotenv
+    import os
+    import datetime
+
     # Setting browser
     load_dotenv()
     google_chrome_bin = os.getenv('google_chrome_bin')

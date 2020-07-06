@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect
 from flask_pymongo import PyMongo
-import web_mission_to_mars
+from web.web_mission_to_mars import scrape
 from dotenv import load_dotenv
 import os
 
@@ -36,7 +36,7 @@ def home():
 @app.route('/scrape/')
 def scrape():
     mars = mongo.db.mars
-    mars_data = web_mission_to_mars.scrape()
+    mars_data = scrape()
     mars.replace_one({}, mars_data, upsert=True)
     print(mars_data)
     return redirect("/")
