@@ -20,7 +20,9 @@ From this, a dictionary was created and uploaded into a MongoDB database through
 
 ## Data inside the repository
 
-In this repository you'll see two app.py files, the one with the word 'simple' at the name, is the one used in the deployement of the [site](https://results-scrape-mars.herokuapp.com/) without the scraping function. Since this code was created using a chromedriver and it's not compatible with Heroku, I had to simplify the deployed site to only show the latest scrape rather than doing the scraping directly. 
+In this repository you'll see two folders. The one name Original, is the original code written for this exercise, which works locally with the appropiate keys for twitter and mongodb. The second folder called Simple, is a simpler version of the code that only displays the latest result of the scrape that was originally in the Heroku application since this code was writen using a chromedriver and it's not compatible with Heroku. 
+
+I'm currently working on deployment site with the scrape function with the aid of buildpacks, the site is deployed but the scrape is still not working properly. 
 
 ### Copyright
 
