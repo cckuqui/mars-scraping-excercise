@@ -26,4 +26,4 @@ I'm currently working on deployment site with the scrape function with the aid o
 
 ### Copyright
 
-Exercise created by Trilogy Education Services © 2019. All Rights Reserved. Mars image not own, retrived from Space.com on 29/06/2020.
+Mars image not own, retrived from Space.com on 29/06/2020.
