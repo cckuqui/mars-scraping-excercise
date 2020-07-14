@@ -14,12 +14,13 @@ def mars_scrape():
     try: 
         chrome_options = webdriver.ChromeOptions()
         chrome_options.binary_location = os.getenv('google_chrome_bin')
-        chrome_options.add_argument('--disable-gpu')
-        chrome_options.add_argument('--disable-dev-shm-usage')
-        chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('--remote-debugging-port=9222')
-        browser = webdriver.Chrome(execution_path=os.getenv('chromedriver_path'), chrome_options=chrome_options)
+        # chrome_options.add_argument('--disable-gpu')
+        # chrome_options.add_argument('--no-sandbox')
+        # chrome_options.add_argument('--headless')
+        # chrome_options.add_argument('--disable-dev-shm-usage')
+        # chrome_options.add_argument('--remote-debugging-port=9222')
+        driver = webdriver.Chrome(execution_path=os.getenv('chromedriver_path'), chrome_options=chrome_options)
+        brower = webdriver.Chrome(DRIVER)
         return browser
     except:
         return 'browser not working'
