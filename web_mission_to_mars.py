@@ -12,14 +12,14 @@ def mars_scrape():
     # Setting browser
     load_dotenv()
     try: 
-        google_chrome_bin = os.getenv('google_chrome_bin')
-        chromedriver_path = os.getenv('chromedriver_path')
         chrome_options = webdriver.ChromeOptions()
+        chrome_options.binary_location = os.getenv('google_chrome_bin')
         chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--no-sandbox')
-        chrome_options.add_argument("--headless")
-        chrome_options.binary_location = google_chrome_bin
-        browser = webdriver.Chrome(execution_path=chromedriver_path, chrome_options=chrome_options)
+        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--remote-debugging-port=9222')
+        browser = webdriver.Chrome(execution_path=os.getenv('chromedriver_path'), chrome_options=chrome_options)
         return browser
     except:
         return 'browser not working'
@@ -28,7 +28,7 @@ def mars_scrape():
     url = 'https://mars.nasa.gov/news/'
     browser.visit(url)
     html = browser.html
-    soup = bs(html, 'html')
+    soup = bs(html, 'lxml')
     content_titles = soup.find_all('div', class_ = 'content_title')
     ntitle = content_titles[1].text
     nbody = soup.find('div', class_ = 'article_teaser_body').text
@@ -39,7 +39,7 @@ def mars_scrape():
     browser.click_link_by_partial_text('FULL')
     browser.click_link_by_partial_text('more info')
     html = browser.html
-    soup = bs(html,'html')
+    soup = bs(html,'lxml')
     
     # Image Url
     lede = soup.find('figure', class_='lede')
@@ -79,7 +79,7 @@ def mars_scrape():
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(url)
     html = browser.html
-    soup = bs(html, 'html')
+    soup = bs(html, 'lxml')
     links = []
     products = soup.find_all('div', class_='item')
     for p in products:
