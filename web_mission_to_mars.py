@@ -13,11 +13,11 @@ def mars_scrape():
     load_dotenv()
     try: 
         opt = webdriver.ChromeOptions()
-        opt.binary_location = os.getenv('google_chrome_bin')
+        opt.binary_location = os.getenv('GOOGLE_CHROME_BIN')
         opt.add_argument('--no-sandbox')
         opt.add_argument('--headless')
         opt.add_argument('--disable-dev-shm-usage')
-        browser = webdriver.Chrome(execution_path=os.getenv('chromedriver_path'), chrome_options=opt)
+        browser = webdriver.Chrome(execution_path=os.getenv('CHROMEDRIVER_PATH'), chrome_options=opt)
         return browser
     except:
         return 'browser not working'
