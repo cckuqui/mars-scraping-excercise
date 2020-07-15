@@ -110,5 +110,7 @@ def mars_scrape():
         'h':links,
         'date': str(datetime.date.today())
         }
+    
+    print(mars)
 
     return mars

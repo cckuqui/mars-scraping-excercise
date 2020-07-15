@@ -37,8 +37,8 @@ def home():
 def scrape():
     mars = mongo.db.mars
     mars_data = web_mission_to_mars.mars_scrape()
-    mars.replace_one({}, mars_data, upsert=True)
     print(mars_data)
+    mars.replace_one({}, mars_data, upsert=True)
     return redirect("/")
 
 @app.route("/about/")
