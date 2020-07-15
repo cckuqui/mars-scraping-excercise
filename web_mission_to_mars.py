@@ -12,22 +12,19 @@ def mars_scrape():
     # Setting browser
     load_dotenv()
     try: 
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.binary_location = os.getenv('google_chrome_bin')
-        # chrome_options.add_argument('--disable-gpu')
-        # chrome_options.add_argument('--no-sandbox')
-        # chrome_options.add_argument('--headless')
-        # chrome_options.add_argument('--disable-dev-shm-usage')
-        # chrome_options.add_argument('--remote-debugging-port=9222')
-        driver = webdriver.Chrome(execution_path=os.getenv('chromedriver_path'), chrome_options=chrome_options)
-        brower = webdriver.Chrome(DRIVER)
+        opt = webdriver.ChromeOptions()
+        opt.binary_location = os.getenv('google_chrome_bin')
+        opt.add_argument('--no-sandbox')
+        opt.add_argument('--headless')
+        opt.add_argument('--disable-dev-shm-usage')
+        browser = webdriver.Chrome(execution_path=os.getenv('chromedriver_path'), chrome_options=opt)
         return browser
     except:
         return 'browser not working'
     
     # News
     url = 'https://mars.nasa.gov/news/'
-    browser.visit(url)
+    browser.get(url)
     html = browser.html
     soup = bs(html, 'lxml')
     content_titles = soup.find_all('div', class_ = 'content_title')
@@ -36,7 +33,7 @@ def mars_scrape():
 
     # Feature Image page
     url = 'https://www.jpl.nasa.gov/spaceimages/'
-    browser.visit(url)
+    browser.get(url)
     browser.click_link_by_partial_text('FULL')
     browser.click_link_by_partial_text('more info')
     html = browser.html
@@ -78,7 +75,7 @@ def mars_scrape():
         
     # Hemisphere Images
     url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
-    browser.visit(url)
+    browser.get(url)
     html = browser.html
     soup = bs(html, 'lxml')
     links = []
